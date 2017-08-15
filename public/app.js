@@ -1,5 +1,5 @@
 // APP MAIN
-angular.module("app", ["ngRoute", "ticketList"])
+angular.module("app", ["ngRoute", "ticketList", "ticketCommon"])
 
   .config(function($routeProvider, $compileProvider, $httpProvider) {
 
