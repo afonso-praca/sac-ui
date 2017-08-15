@@ -1,1 +1,21 @@
 <h1>Ticket List</h1>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>State</th>
+            <th>Reason</th>
+            <th>Created at</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="ticket in tickets track by $index">
+            <td>{{ ticket.type }}</td>
+            <td>{{ ticket.state }}</td>
+            <td>{{ ticket.reason }}</td>
+            <td>{{ ticket.createdAt }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
