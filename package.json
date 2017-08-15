@@ -18,5 +18,8 @@
   "homepage": "https://github.com/afonso-praca/sac-ui#readme",
   "dependencies": {
     "express": "^4.15.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
