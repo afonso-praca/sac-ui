@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="SAC APP">
+        <meta name="author" content="Afonso Praça <afonsoinfo@gmail.com>">
+
         <title>SAC APP</title>
+
+        <!-- STYLES -->
+        <link rel="stylesheet" href="libs/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="style.css" />
+
         <!-- ANGULAR -->
-        <script src="libs/angular.min.js"></script>
-        <script src="libs/angular-route.min.js"></script>
+        <script src="libs/js/angular.min.js"></script>
+        <script src="libs/js/angular-route.min.js"></script>
 
         <!-- UNDERSCORE UTILS -->
-        <script src="libs/underscore-min.js"></script>
+        <script src="libs/js/underscore-min.js"></script>
 
         <!-- APP MODULES -->
         <script src="modules/ticket-list/scripts/ticket-list-controller.js"></script>
@@ -20,7 +30,10 @@
     </head>
     <body>
         <div id="app-container">
-            <div data-ng-view id="app-content"></div>
+            <div ng-include="'header.html'"></div>
+            <div class="container">
+                <div data-ng-view id="app-content"></div>
+            </div>
         </div>
     </body>
 </html>
