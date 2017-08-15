@@ -1,0 +1,22 @@
+{
+  "name": "sac-ui",
+  "version": "0.0.1",
+  "description": "SAC UI",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afonso-praca/sac-ui.git"
+  },
+  "author": "afonsoinfo@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afonso-praca/sac-ui/issues"
+  },
+  "homepage": "https://github.com/afonso-praca/sac-ui#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
