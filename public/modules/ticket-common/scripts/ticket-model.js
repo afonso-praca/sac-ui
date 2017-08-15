@@ -7,6 +7,7 @@ angular.module('ticketCommon', [])
       this.state = data.state || null;
       this.reason = data.reason || null;
       this.details = data.details || null;
+      this.createdAt = data.createdAt ? new Date(data.createdAt) : null;
     };
     return TicketModel;
   });
