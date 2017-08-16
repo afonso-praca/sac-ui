@@ -22,4 +22,22 @@ angular.module('ticketList')
       return defer.promise;
     };
 
+    self.deleteTicket = function(id){
+      var defer = $q.defer();
+      $http({
+        method: 'DELETE',
+        url: self.baseAPIUrl + "/ticket/" + id,
+        cache: false
+      }).then(function (response) {
+        if (response && response.data){
+          defer.resolve(true);
+        } else {
+          defer.reject(new Error("Unexpected body response"));
+        }
+      }, function (error) {
+        defer.reject(new Error(error));
+      });
+      return defer.promise;
+    };
+
   });

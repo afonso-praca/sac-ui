@@ -14,8 +14,11 @@ angular.module('ticketList', [])
       });
     };
 
-    $scope.editTicket = function(tpRule, rule) {
-
+    $scope.deleteTicket = function (id) {
+      console.log("delete id = " + id);
+      TicketListService.deleteTicket(id).then(function () {
+        self.startModule();
+      });
     };
 
     self.startModule();

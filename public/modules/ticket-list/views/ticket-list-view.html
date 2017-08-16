@@ -16,6 +16,7 @@
                 <th>State</th>
                 <th>Reason</th>
                 <th>Created at</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -24,6 +25,19 @@
                 <td>{{ ticket.state }}</td>
                 <td>{{ ticket.reason }}</td>
                 <td>{{ ticket.createdAt }}</td>
+                <td>
+                    <a href="/#!/ticket/{{ ticket.id }}">
+                        <button type="button"
+                                class="btn btn-default btn-xs">
+                            Edit
+                        </button>
+                    </a>
+                    <button type="button"
+                            class="btn btn-danger btn-xs"
+                            ng-click="deleteTicket(ticket.id)">
+                        Delete
+                    </button>
+                </td>
             </tr>
             </tbody>
         </table>
