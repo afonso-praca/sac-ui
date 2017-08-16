@@ -3,9 +3,10 @@ angular.module("app", ["ngRoute", "ticketList", "ticketDetail", "ticketCommon"])
 
   .config(function($routeProvider, $compileProvider, $httpProvider) {
 
+    // FOR PREFORMANCE BOOST
     $compileProvider.debugInfoEnabled(false);
 
-    // TICKET LIST
+    // TICKET LIST ROUTE
     $routeProvider.when('/tickets/', {
       controller: "TicketListController",
       templateUrl: 'modules/ticket-list/views/ticket-list-view.html',
@@ -16,7 +17,7 @@ angular.module("app", ["ngRoute", "ticketList", "ticketDetail", "ticketCommon"])
       }
     });
 
-    // TICKET LIST
+    // TICKET DETAIL ROUTE
     $routeProvider.when('/ticket/:id', {
       controller: "TicketDetailController",
       templateUrl: 'modules/ticket-detail/views/ticket-detail-view.html',
@@ -27,25 +28,28 @@ angular.module("app", ["ngRoute", "ticketList", "ticketDetail", "ticketCommon"])
       }
     });
 
+    // ROUTE FALLBACK
     $routeProvider.otherwise({
       redirectTo: '/tickets/'
     });
 
-    // HTTP SETTINGS
+    // HTTP SETTING FOR PERFORMANCE BOOST
     $httpProvider.useApplyAsync(true);
+
+    // REMOVES NOT NECESSARY HEADER, TO PREVENT CORS TROUBLES
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
   })
 
   .run(function($rootScope) {
     $rootScope.$on('$routeChangeSuccess', function(){
-      // to do -> implements stop loader
+      // TO DO -> IMPLEMENTS STOP LOADER
     });
     $rootScope.$on('$routeChangeStart', function(){
-      // to do -> implements start loader
+      // TO DO -> IMPLEMENTS START LOADER
     });
   });
 
-// BOOTSTRAPS ANGULAR APP
+// BOOTSTRAPS ANGULAR APP - BIND IT TO A CONTAINER
 angular.element(document).ready(function(){
   angular.bootstrap(document.getElementById("app-container"), ['app']);
 });
