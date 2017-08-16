@@ -1,7 +1,6 @@
 # sac-ui
 
-Front end app
-Depends on a running instance of sac-api to properly run.
+Front end app. Depends on a running instance of sac-api to properly run.
 
 ## How to run
 
