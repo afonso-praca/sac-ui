@@ -11,9 +11,7 @@ angular.module('ticketDetail')
           cache: false
         }).then(function (response) {
           if (response && response.data){
-            defer.resolve(_.map(response.data, function (ticket) {
-              return new TicketModel(ticket);
-            }));
+            defer.resolve(new TicketModel(response.data));
           } else {
             defer.reject(new Error("Unexpected body response"));
           }
