@@ -1,5 +1,5 @@
 // APP MAIN
-angular.module("app", ["ngRoute", "ticketList", "ticketCommon"])
+angular.module("app", ["ngRoute", "ticketList", "ticketDetail", "ticketCommon"])
 
   .config(function($routeProvider, $compileProvider, $httpProvider) {
 
@@ -14,6 +14,17 @@ angular.module("app", ["ngRoute", "ticketList", "ticketCommon"])
       //     return TicketListService.getTickets();
       //   }
       // }
+    });
+
+    // TICKET LIST
+    $routeProvider.when('/ticket/:id', {
+      controller: "TicketDetailController",
+      templateUrl: 'modules/ticket-detail/views/ticket-detail-view.html',
+      resolve: {
+        ticket: function(TicketDetailService, $route) {
+          return TicketDetailService.getTicket($route.current.params.id);
+        }
+      }
     });
 
     $routeProvider.otherwise({
