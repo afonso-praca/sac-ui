@@ -1,16 +1,14 @@
 angular.module('ticketDetail', [])
-  .controller("TicketDetailController", function($scope, ticket) {
+  .controller("TicketDetailController", function($scope, $location,
+                                                 ticket, TicketDetailService) {
 
-    var self = this;
     $scope.ticket = ticket;
 
-    self.startModule = function() {
-      console.log("Ticket Detail Started!");
+    $scope.saveTicket = function (ticket) {
+      console.log(ticket);
+      TicketDetailService.saveTicket(ticket).then(function () {
+        $location.path('/#!/tickets');
+      });
     };
 
-    $scope.saveTicket = function(tpRule, rule) {
-
-    };
-
-    self.startModule();
   });
