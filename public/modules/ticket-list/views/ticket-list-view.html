@@ -8,7 +8,7 @@
             </button>
         </a>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive" ng-if="tickets.length">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -21,10 +21,10 @@
             </thead>
             <tbody>
             <tr ng-repeat="ticket in tickets track by $index">
-                <td>{{ ticket.type }}</td>
+                <td>{{ ticket.type | toUpperLowerCase }}</td>
                 <td>{{ ticket.state }}</td>
-                <td>{{ ticket.reason }}</td>
-                <td>{{ ticket.createdAt }}</td>
+                <td>{{ ticket.reason | toUpperLowerCase }}</td>
+                <td>{{ ticket.createdAt | date : 'short' }}</td>
                 <td>
                     <a href="/#!/ticket/{{ ticket.id }}">
                         <button type="button"
@@ -42,4 +42,5 @@
             </tbody>
         </table>
     </div>
+    <div class="well" ng-if="tickets.length == 0">No Tickets Yet</div>
 </div>
