@@ -41,5 +41,4 @@ angular.module('ticketList')
       });
       return defer.promise;
     };
-
   });

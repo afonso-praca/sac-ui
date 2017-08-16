@@ -5,6 +5,7 @@ angular.module('ticketDetail')
 
     self.getTicket = function(id){
       var defer = $q.defer();
+      // GETS TICKET FROM API OR RETURN AN EMPTY MODEL
       if (id && id !== 'new'){
         $http({
           method: 'GET',
@@ -14,7 +15,7 @@ angular.module('ticketDetail')
           if (response && response.data){
             defer.resolve(new TicketModel(response.data));
           } else {
-            defer.reject(new Error("Unexpected body response"));
+            defer.reject(new Error());
           }
         }, function (error) {
           defer.reject(new Error(error));
@@ -25,42 +26,52 @@ angular.module('ticketDetail')
       return defer.promise;
     };
 
+    self.createNewTicket = function (ticketToSend, defer) {
+      // DELETE DATA THAT WE SHOULD NOT SEND IN A NEW TICKET
+      delete ticketToSend.id;
+      delete ticketToSend.createdAt;
+      $http({
+        method: 'POST',
+        url: self.baseAPIUrl + "/ticket/",
+        cache: false,
+        data: ticketToSend
+      }).then(function (response) {
+        if (response){
+          defer.resolve();
+        } else {
+          defer.reject(new Error());
+        }
+      }, function (error) {
+        defer.reject(new Error(error));
+      });
+    };
+
+    self.updateTicket = function (ticketToSend, defer) {
+      $http({
+        method: 'PUT',
+        url: self.baseAPIUrl + "/ticket/" + ticketToSend.id,
+        cache: false,
+        data: ticketToSend
+      }).then(function (response) {
+        if (response){
+          defer.resolve();
+        } else {
+          defer.reject(new Error());
+        }
+      }, function (error) {
+        defer.reject(new Error(error));
+      });
+    };
+
     self.saveTicket = function (ticket) {
-      // creates or updates a ticket
       var defer = $q.defer();
+      // CLONE RECEIVED DATA TO PREVENT CHANGES ON ORIGINAL OBJECT
       var ticketToSend = angular.copy(ticket);
-      if (ticket.id === null){
-        delete ticketToSend.id;
-        delete ticketToSend.createdAt;
-        $http({
-          method: 'POST',
-          url: self.baseAPIUrl + "/ticket/",
-          cache: false,
-          data: ticketToSend
-        }).then(function (response) {
-          if (response && response.data){
-            defer.resolve(true);
-          } else {
-            defer.reject(new Error("Unexpected body response"));
-          }
-        }, function (error) {
-          defer.reject(new Error(error));
-        });
+      // CREATE OR UPDATE A TICKET
+      if (ticketToSend.id === null){
+        self.createNewTicket(ticketToSend, defer);
       } else {
-        $http({
-          method: 'PUT',
-          url: self.baseAPIUrl + "/ticket/" + ticket.id,
-          cache: false,
-          data: ticketToSend
-        }).then(function (response) {
-          if (response){
-            defer.resolve(true);
-          } else {
-            defer.reject(new Error("Unexpected body response"));
-          }
-        }, function (error) {
-          defer.reject(new Error(error));
-        });
+        self.updateTicket(ticketToSend, defer);
       }
       return defer.promise;
     };

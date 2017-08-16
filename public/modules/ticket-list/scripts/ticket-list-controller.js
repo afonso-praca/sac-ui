@@ -11,5 +11,4 @@ angular.module('ticketList', [])
         $route.reload();
       });
     };
-
   });
