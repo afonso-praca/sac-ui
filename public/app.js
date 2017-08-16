@@ -9,11 +9,11 @@ angular.module("app", ["ngRoute", "ticketList", "ticketDetail", "ticketCommon"])
     $routeProvider.when('/tickets/', {
       controller: "TicketListController",
       templateUrl: 'modules/ticket-list/views/ticket-list-view.html',
-      // resolve: {
-      //   tickets: function(TicketListService) {
-      //     return TicketListService.getTickets();
-      //   }
-      // }
+      resolve: {
+        tickets: function(TicketListService) {
+          return TicketListService.getTickets();
+        }
+      }
     });
 
     // TICKET LIST
@@ -37,14 +37,12 @@ angular.module("app", ["ngRoute", "ticketList", "ticketDetail", "ticketCommon"])
   })
 
   .run(function($rootScope) {
-
     $rootScope.$on('$routeChangeSuccess', function(){
-      // stop loader
+      // to do -> implements stop loader
     });
     $rootScope.$on('$routeChangeStart', function(){
-      // start loader
+      // to do -> implements start loader
     });
-
   });
 
 // BOOTSTRAPS ANGULAR APP
