@@ -1,25 +1,14 @@
 angular.module('ticketList', [])
-  .controller("TicketListController", function($scope, TicketListService) {
+  .controller("TicketListController", function($scope, $route,
+                                               TicketListService, tickets) {
 
-    var self = this;
-    $scope.tickets = [];
-
-    self.startModule = function() {
-      console.log("Ticket List Started!");
-      TicketListService.getTickets().then(function (data) {
-        console.log(data);
-        $scope.tickets = data;
-      }, function (error) {
-        throw new Error(error);
-      });
-    };
+    $scope.tickets = tickets;
 
     $scope.deleteTicket = function (id) {
       console.log("delete id = " + id);
       TicketListService.deleteTicket(id).then(function () {
-        self.startModule();
+        $route.reload();
       });
     };
 
-    self.startModule();
   });
