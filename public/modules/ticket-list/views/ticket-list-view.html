@@ -9,48 +9,49 @@
         </a>
     </div>
     <div ng-repeat="date in getKeysSorted(groupedTickets, true)">
-        <div class="table-responsive">
-            <div class="page-header">
-                <h1><small>{{ date }}</small></h1>
-            </div>
+        <div class="page-header">
+            <h1><small>{{ date }}</small></h1>
+        </div>
 
-            <div ng-repeat="state in getKeysSorted(groupedTickets[date], false)">
-                <h4><span class="label label-default">{{ state }}</span></h4>
+        <div ng-repeat="state in getKeysSorted(groupedTickets[date], false)">
+            <h4><span class="label label-default">{{ state }}</span></h4>
+            <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th class="col-md-2">Type</th>
-                            <th class="col-md-2">State</th>
-                            <th class="col-md-3">Reason</th>
-                            <th class="col-md-3">Created at</th>
-                            <th class="col-md-2">Actions</th>
-                        </tr>
+                    <tr>
+                        <th class="col-md-2">Type</th>
+                        <th class="col-md-2">State</th>
+                        <th class="col-md-3">Reason</th>
+                        <th class="col-md-3">Created at</th>
+                        <th class="col-md-2">Actions</th>
+                    </tr>
                     </thead>
                     <tbody>
 
-                        <tr ng-repeat="ticket in groupedTickets[date][state] track by $index">
-                            <td>{{ ticket.type | toUpperLowerCase }}</td>
-                            <td>{{ ticket.state }}</td>
-                            <td>{{ ticket.reason | toUpperLowerCase }}</td>
-                            <td>{{ ticket.createdAt | date : 'short' }}</td>
-                            <td>
-                                <a href="/#!/ticket/{{ ticket.id }}">
-                                    <button type="button"
-                                            class="btn btn-default btn-xs">
-                                        Edit
-                                    </button>
-                                </a>
+                    <tr ng-repeat="ticket in groupedTickets[date][state] track by $index">
+                        <td>{{ ticket.type | toUpperLowerCase }}</td>
+                        <td>{{ ticket.state }}</td>
+                        <td>{{ ticket.reason | toUpperLowerCase }}</td>
+                        <td>{{ ticket.createdAt | date : 'short' }}</td>
+                        <td>
+                            <a href="/#!/ticket/{{ ticket.id }}">
                                 <button type="button"
-                                        class="btn btn-danger btn-xs"
-                                        ng-click="deleteTicket(ticket.id)">
-                                    Delete
+                                        class="btn btn-default btn-xs">
+                                    Edit
                                 </button>
-                            </td>
-                        </tr>
+                            </a>
+                            <button type="button"
+                                    class="btn btn-danger btn-xs"
+                                    ng-click="deleteTicket(ticket.id)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+
     </div>
 
     <div class="well" ng-if="!hasTickets()">No Tickets Yet</div>
