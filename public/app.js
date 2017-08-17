@@ -11,8 +11,8 @@ angular.module("app", ["ngRoute", "ticketList", "ticketDetail", "ticketCommon"])
       controller: "TicketListController",
       templateUrl: 'modules/ticket-list/views/ticket-list-view.html',
       resolve: {
-        ticketsOrdered: function(TicketListService) {
-          return TicketListService.getTicketsGrouped();
+        groupedTickets: function(TicketListService) {
+          return TicketListService.getGroupedTickets();
         }
       }
     });

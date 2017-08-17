@@ -1,9 +1,9 @@
 angular.module('ticketList', [])
   .controller("TicketListController", function($scope, $route,
-                                               TicketListService, ticketsOrdered) {
+                                               TicketListService, groupedTickets) {
 
     // PUTS RECEIVED TICKETS ON SCOPE
-    $scope.ticketsOrdered = ticketsOrdered;
+    $scope.groupedTickets = groupedTickets;
 
     $scope.deleteTicket = function (id) {
       TicketListService.deleteTicket(id).then(function () {
@@ -12,7 +12,12 @@ angular.module('ticketList', [])
       });
     };
 
+    // RETURNS A SORTED ARRAY OF THE KEYS OF AN OBJECT
+    $scope.getKeysSorted = function (obj, reverse) {
+      return reverse ? _.keys(obj).sort().reverse() : _.keys(obj).sort();
+    };
+
     $scope.hasTickets = function () {
-      return Object.keys($scope.ticketsOrdered).length !== 0
+      return _.keys($scope.groupedTickets).length !== 0
     };
   });

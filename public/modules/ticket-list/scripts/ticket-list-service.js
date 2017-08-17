@@ -24,26 +24,27 @@ angular.module('ticketList')
       return defer.promise;
     };
 
-    self.getTicketsGrouped = function () {
+    self.getGroupedTickets = function () {
       var defer = $q.defer();
       var tickets = [];
       self.getTickets().then(function (response) {
         tickets = response;
-        var ticketsGroupedByDate = _.groupBy(tickets, function (ticket) {
+        // GROUPS TICKETS BY DATE
+        var groupedTicketsByDate = _.groupBy(tickets, function (ticket) {
           return $filter('date', 'M/d/yy')(ticket.createdAt);
         });
-        ticketsGroupedByDate = _.reduce(ticketsGroupedByDate, function (memo, tickets, date) {
+        // GROUP TICKETS BY DATE AND STATE
+        var groupedTicketsByDateAndState = _.reduce(groupedTicketsByDate, function (memo, tickets, date) {
           memo[date] = _.groupBy(tickets, function (ticket) {
             return ticket.state;
           });
+          // ORDER TICKETS BY DATE ON EACH STATE
+          _.each(memo[date], function (tickets, stateKey) {
+            memo[date][stateKey] = _.sortBy(memo[date][stateKey], 'createdAt').reverse();
+          });
           return memo;
         }, {});
-        _.each(ticketsGroupedByDate, function (states, dateKey) {
-          _.each(states, function (tickets, stateKey) {
-            ticketsGroupedByDate[dateKey][stateKey] = _.sortBy(ticketsGroupedByDate[dateKey][stateKey], 'createdAt').reverse();
-          });
-        });
-        defer.resolve(ticketsGroupedByDate);
+        defer.resolve(groupedTicketsByDateAndState);
       });
 
       return defer.promise;
